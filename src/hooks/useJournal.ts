@@ -1,6 +1,7 @@
 "use client";
 
 import { adventureContext } from "@/context/adventure";
+import { File } from "@/class/file";
 import { TypeOf, z } from "zod";
 import { useContext } from "react";
 
@@ -10,20 +11,22 @@ export const journalSchema = z.array(
 	})
 );
 
-export type Journal = TypeOf<typeof journalSchema>;
+export type JournalData = TypeOf<typeof journalSchema>;
 
 export const useJournal = () => {
 	const { data, setData, directoryHandle } = useContext(adventureContext);
 
-	const write = async (journal: Journal) => {
-		const journalFileHandle = await directoryHandle.getFileHandle("journal.json", {
-			create: true,
-		});
-		const journalFileWritable = await journalFileHandle.createWritable();
-		await journalFileWritable.write(JSON.stringify(journal));
-		await journalFileWritable.close();
-		setData((data) => ({ ...data, journal }));
+	const read = async () => {
+		const journalFile = new File(directoryHandle, "journal", []);
+		const journal = await journalFile.read();
+		setData((prevData) => ({ ...prevData, journal: journalSchema.parse({ journal }) }));
 	};
 
-	return { write, data: data["journal"] };
+	const write = async (data: JournalData) => {
+		const journalFile = new File(directoryHandle, "journal", []);
+		const journal = await journalFile.write(data);
+		setData((prevData) => ({ ...prevData, journal }));
+	};
+
+	return { read, write, data: data["journal"] };
 };

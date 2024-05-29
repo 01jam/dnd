@@ -1,6 +1,7 @@
 "use client";
 
-import { Journal, journalSchema } from "@/hooks/useJournal";
+import { JournalData, journalSchema } from "@/hooks/useJournal";
+import { File } from "@/class/file";
 import {
 	Dispatch,
 	FC,
@@ -12,7 +13,7 @@ import {
 } from "react";
 
 interface AdventureData {
-	journal: Journal;
+	journal: JournalData;
 }
 
 interface AdventureContext {
@@ -34,14 +35,8 @@ export const AdventureProvider: FC<PropsWithChildren> = ({ children }) => {
 		try {
 			const directoryHandle = await window.showDirectoryPicker({ mode: "readwrite" });
 			adventureDirectoryHandle["current"] = directoryHandle;
-			const journalFileHandle = await directoryHandle.getFileHandle("journal.json", {
-				create: true,
-			});
-			const journalFile = await journalFileHandle.getFile();
-			const journalFileContent = await journalFile.text();
-			const journalData = journalSchema.parse(JSON.parse(journalFileContent));
-
-			setAdventureData({ journal: journalData });
+			const journalFile = new File(adventureDirectoryHandle["current"], "journal", []);
+			setAdventureData({ journal: journalSchema.parse(await journalFile.read()) });
 
 			// for await (const [filename, fileHandle] of directoryHandle.entries()) {
 			// 	if (fileHandle["kind"] === "file" && filename === "journal.json") {
