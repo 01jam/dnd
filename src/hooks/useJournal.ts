@@ -8,6 +8,7 @@ import { useContext } from "react";
 export const journalSchema = z.array(
 	z.object({
 		title: z.string(),
+		body: z.string(),
 	})
 );
 

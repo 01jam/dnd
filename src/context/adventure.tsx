@@ -11,6 +11,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { redirect, usePathname } from "next/navigation";
 
 interface AdventureData {
 	journal: JournalData;
@@ -26,6 +27,7 @@ interface AdventureContext {
 export const adventureContext = createContext<AdventureContext>(undefined!);
 
 export const AdventureProvider: FC<PropsWithChildren> = ({ children }) => {
+	const pathname = usePathname();
 	const adventureDirectoryHandle = useRef<FileSystemDirectoryHandle>();
 	const [adventureData, setAdventureData] = useState<AdventureData>({
 		journal: [],
@@ -51,6 +53,10 @@ export const AdventureProvider: FC<PropsWithChildren> = ({ children }) => {
 	};
 
 	if (!adventureDirectoryHandle["current"]) {
+		if (pathname !== "/") {
+			redirect("/");
+		}
+
 		return <button onClick={openAdventureFolder}>Pick adventure folder</button>;
 	}
 

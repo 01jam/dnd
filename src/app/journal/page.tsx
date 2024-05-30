@@ -1,6 +1,7 @@
 "use client";
 
-import { Journal } from "@/components/journal/page";
+import { Journal } from "@/components/journal/journal";
+import { redirect } from "next/navigation";
 
 export default function Page() {
 	return (

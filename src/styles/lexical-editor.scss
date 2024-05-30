@@ -1,0 +1,30 @@
+.editor {
+	position: relative;
+
+	& > div {
+		outline: none;
+	}
+
+	&-placeholder {
+		color: #999;
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		left: 0;
+		user-select: none;
+		pointer-events: none;
+	}
+
+	&-paragraph {
+		margin: 0 0 15px 0;
+		position: relative;
+	}
+}
+
+.ltr {
+	text-align: left;
+}
+
+.rtl {
+	text-align: right;
+}

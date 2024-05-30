@@ -10,10 +10,16 @@
 	backdrop-filter: blur(var(--blur));
 	top: 0;
 	left: 0;
+	box-sizing: border-box;
 
 	&-content {
-		background-color: rgba(var(--color-white), 0.5);
+		background-color: rgba(var(--color-white), 1);
+		height: 100%;
 		width: 100%;
-		min-width: 570px;
 	}
+}
+
+.flow {
+	height: 100%;
+	width: 100%;
 }

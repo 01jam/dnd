@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
+import "reactflow/dist/style.css";
+
 import { AdventureProvider } from "@/context/adventure";
 
 const inter = Inter({ subsets: ["latin"] });
