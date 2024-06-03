@@ -8,6 +8,7 @@ import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { useJournal } from "@/hooks/useJournal";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 const theme = {
 	ltr: "ltr",
@@ -21,23 +22,9 @@ const initialConfig = {
 	onError: console.error,
 };
 
-const OnchangePlugin: FC<{ onChange: (editorState: EditorState) => void }> = ({ onChange }) => {
-	const [editor] = useLexicalComposerContext();
-	useEffect(() => {
-		return editor.registerUpdateListener(({ editorState }) => {
-			onChange(editorState);
-		});
-	}, [editor, onChange]);
-	return null;
-};
-
-export const JournalEditor: FC = () => {
+export const JournalEditor: FC<{ body?: any }> = ({ body }) => {
 	const { write } = useJournal();
 	const [editorState, setEditorState] = useState<EditorState>();
-
-	useEffect(() => {
-		console.log();
-	}, [editorState]);
 
 	const save = () => {
 		if (!editorState) {
@@ -45,7 +32,7 @@ export const JournalEditor: FC = () => {
 		}
 
 		const textContent = editorState.read(() => $getRoot().getTextContent());
-		write([{ title: "", body: textContent }]);
+		write([]);
 	};
 
 	return (
@@ -56,7 +43,7 @@ export const JournalEditor: FC = () => {
 					placeholder={<div className='editor-placeholder'>Enter some text...</div>}
 					ErrorBoundary={LexicalErrorBoundary}
 				/>
-				<OnchangePlugin onChange={setEditorState} />
+				<OnChangePlugin onChange={setEditorState} />
 				<HistoryPlugin />
 				<AutoFocusPlugin />
 			</LexicalComposer>

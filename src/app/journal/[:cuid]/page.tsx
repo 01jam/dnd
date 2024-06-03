@@ -1,9 +1,8 @@
 "use client";
 
 import { Journal } from "@/components/journal/journal";
-import { redirect } from "next/navigation";
 
-export default function Page() {
+export default function Page({ params }: { params: { cuid: string } }) {
 	return (
 		<main>
 			<Journal />

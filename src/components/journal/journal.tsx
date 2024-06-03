@@ -7,10 +7,12 @@ export const Journal: FC = () => {
 
 	return (
 		<div className='journal'>
-			{/* {data.map((block, index) => (
-				<div key={index}>{block["title"]}</div>
-			))} */}
-
+			<input type='text' name='title' placeholder='Title' />
+			<input type='checkbox' name='done' />
+			<div>
+				<input type='text' name='types' placeholder='Types' />
+				<input type='text' name='tags' placeholder='Tags' />
+			</div>
 			<JournalEditor />
 		</div>
 	);
