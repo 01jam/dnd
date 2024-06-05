@@ -1,3 +1,9 @@
 @import "@/styles/variables.scss";
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
 @import "@/styles/components.scss";
 @import "@/styles/lexical-editor.scss";

@@ -1,9 +1,9 @@
 .modal {
 	position: fixed;
-	height: 100%;
 	width: 100%;
+	height: 100%;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	padding: var(--size-3);
 	background-color: rgba(var(--color-black), 0.5);
@@ -13,9 +13,29 @@
 	box-sizing: border-box;
 
 	&-content {
+		margin-top: var(--size-5);
 		background-color: rgba(var(--color-white), 1);
-		height: 100%;
 		width: 100%;
+		max-width: 560px;
+		padding: var(--size-2);
+	}
+}
+
+.journal {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-1);
+	align-items: flex-start;
+	margin: var(--size-2) 0;
+
+	&-entry {
+		padding: var(--size-2);
+		background: rgba(var(--color-whitesmoke), 1);
+		border-radius: var(--rad-1);
+		box-shadow: 0 0 1px 1px rgba(var(--color-black), 0.25);
+	}
+
+	&-editor {
 	}
 }
 

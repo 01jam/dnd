@@ -10,7 +10,7 @@ export const journalEntry = z.object({
 	created: z.string().default(new Date().toISOString()),
 	updated: z.string().default(new Date().toISOString()),
 	cuid: z.string().default(createId()),
-	title: z.string().default(""), // TODO generatore di titoli epici
+	title: z.string().default("New entry"), // TODO generatore di titoli epici
 	done: z.boolean().default(false),
 	types: z
 		.array(z.union([z.literal("main"), z.literal("side"), z.literal("mandatory")]))
@@ -32,6 +32,15 @@ export const journalEntry = z.object({
 	body: z.any().default({}),
 });
 
+export const getDefaultJournalEntry = () => {
+	return {
+		...journalEntry.parse({}),
+		created: new Date().toISOString(),
+		updated: new Date().toISOString(),
+		cuid: createId(),
+	};
+};
+
 export const journalSchema = z.array(journalEntry);
 
 export type JournalEntry = TypeOf<typeof journalEntry>;
@@ -52,5 +61,5 @@ export const useJournal = () => {
 		setData((prevData) => ({ ...prevData, journal }));
 	};
 
-	return { read, write, data: data["journal"] };
+	return { read, write, data: data["journal"], setData };
 };

@@ -47,7 +47,6 @@ export const JournalEditor: FC<{ body?: any }> = ({ body }) => {
 				<HistoryPlugin />
 				<AutoFocusPlugin />
 			</LexicalComposer>
-			<button onClick={save}>Save</button>
 		</div>
 	);
 };
